@@ -26,7 +26,7 @@ export default function Bento() {
           onMouseLeave={() => setClassName('')}
         >
           {new Array(5).fill('').map((_, idx) => (
-            <GlowOnHoverBox>{idx + 1}</GlowOnHoverBox>
+            <GlowOnHoverBox key={idx}>{idx + 1}</GlowOnHoverBox>
           ))}
         </div>
       </div>
