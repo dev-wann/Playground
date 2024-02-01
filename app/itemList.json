@@ -1,7 +1,10 @@
 [
   {
+    "title": "Folder flip",
+    "href": "/folder"
+  },
+  {
     "title": "Comet",
-    "href": "/comet",
-    "thumbnail": ""
+    "href": "/comet"
   }
 ]
