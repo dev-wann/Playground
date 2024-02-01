@@ -2,7 +2,7 @@ const PARTICLE_NUM = 400;
 const PARTICLE_BASE_RADIUS = 0.5;
 const FL = 500;
 const DEFAULT_SPEED = 2;
-const BOOST_SPEED = 10;
+const BOOST_SPEED = 25;
 const BLACKOUT_TIME = 3000;
 
 const COMET_RADIUS = 10;
