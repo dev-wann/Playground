@@ -4,11 +4,18 @@ import { useState } from 'react';
 import Instruction from '../components/Instruction';
 import InteractiveEmoji from './InteractiveEmoji';
 
+export enum StatusEnum {
+  IDLE,
+  EDITING,
+  SUCCESS,
+  FAIL,
+}
+
 export default function InteractiveLogIn() {
   const [userID, setID] = useState('');
   const [userPW, setPW] = useState('');
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [logInStatus, setStatus] = useState(StatusEnum.IDLE);
 
   // sample ID & password
   const SAMPLE_ID = 'test_user';
@@ -19,16 +26,24 @@ export default function InteractiveLogIn() {
     e.preventDefault();
 
     // validation
+    // success
+    if (userID === SAMPLE_ID && userPW === SAMPLE_PW) {
+      setStatus(StatusEnum.SUCCESS);
+      setError(null);
+      return;
+    }
+    // fail
+    setStatus(StatusEnum.FAIL);
     if (userID !== SAMPLE_ID) {
       setError('Check your ID!');
       return;
-    }
-    if (userPW !== SAMPLE_PW) {
+    } else if (userPW !== SAMPLE_PW) {
       setError('Check your password!');
       return;
     }
-    setSuccess(true);
-    setError(null);
+
+    //exhastive check
+    throw new Error('Cannot validate');
   }
 
   // render
@@ -40,7 +55,7 @@ export default function InteractiveLogIn() {
       {/* log in section */}
       <div className="max-w-[360px] m-auto p-12">
         {/* interactive emoji */}
-        <InteractiveEmoji userID={userID} success={success} error={error} />
+        <InteractiveEmoji userID={userID} status={logInStatus} error={error} />
 
         {/* log in form */}
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -58,6 +73,7 @@ export default function InteractiveLogIn() {
               id="user_id"
               name="user_id"
               onChange={(e) => setID(e.target.value)}
+              onFocus={() => setStatus(StatusEnum.EDITING)}
               placeholder="test_user"
             />
           </div>
@@ -75,6 +91,7 @@ export default function InteractiveLogIn() {
               id="user_password"
               name="user_password"
               onChange={(e) => setPW(e.target.value)}
+              onFocus={() => setStatus(StatusEnum.EDITING)}
               placeholder="1234567890"
             />
           </div>
