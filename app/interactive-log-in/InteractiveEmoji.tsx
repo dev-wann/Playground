@@ -3,10 +3,16 @@ import { StatusEnum } from './page';
 type Props = {
   userID: string;
   status: StatusEnum;
+  pos: number | null;
   error: string | null;
 };
 
-export default function InteractiveEmoji({ userID, status, error }: Props) {
+export default function InteractiveEmoji({
+  userID,
+  status,
+  pos,
+  error,
+}: Props) {
   // eyes
   const eyesIdle = (
     <>
@@ -76,6 +82,14 @@ export default function InteractiveEmoji({ userID, status, error }: Props) {
       break;
   }
 
+  // chase cursor when editing
+  let translate = '';
+  if (status === StatusEnum.EDITING && pos !== null) {
+    const x = (pos - 0.5) * 50;
+    const y = (2 - Math.pow(2 * pos - 1, 2)) * 10;
+    translate = `${x}px ${y}px`;
+  }
+
   // render
   return (
     <>
@@ -88,12 +102,18 @@ export default function InteractiveEmoji({ userID, status, error }: Props) {
       </div>
 
       {/* face */}
-      <div className="relative w-3/5 pt-[60%] m-auto mb-8 ">
+      <div className="relative w-3/5 pt-[60%] m-auto mb-8">
         {/* background */}
         <div className="absolute w-full h-full top-0 left-0 top bg-yellow-400 rounded-full" />
 
-        {eyes}
-        {mouth}
+        {/* facial expression */}
+        <div
+          className="absolute w-full h-full top-0 left-0 transition-[translate] duration-500"
+          style={{ translate: translate }}
+        >
+          {eyes}
+          {mouth}
+        </div>
       </div>
     </>
   );

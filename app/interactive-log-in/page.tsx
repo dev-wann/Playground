@@ -16,6 +16,7 @@ export default function InteractiveLogIn() {
   const [userPW, setPW] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [logInStatus, setStatus] = useState(StatusEnum.IDLE);
+  const [xPos, setXPos] = useState<number | null>(null);
 
   // sample ID & password
   const SAMPLE_ID = 'test_user';
@@ -46,6 +47,21 @@ export default function InteractiveLogIn() {
     throw new Error('Cannot validate');
   }
 
+  // event handler for tracking text input
+  function setPosition(e: React.SyntheticEvent) {
+    const elem = e.target;
+    if (!(elem instanceof HTMLInputElement)) return;
+
+    const rect = elem.getBoundingClientRect();
+    const inputLength = rect.right - rect.left - 16;
+
+    const offset = elem.selectionStart;
+    if (offset === null) return;
+    const cursorOffset = Math.min(offset * 10, inputLength);
+
+    setXPos(cursorOffset / inputLength);
+  }
+
   // render
   return (
     <>
@@ -55,7 +71,12 @@ export default function InteractiveLogIn() {
       {/* log in section */}
       <div className="max-w-[360px] m-auto p-12">
         {/* interactive emoji */}
-        <InteractiveEmoji userID={userID} status={logInStatus} error={error} />
+        <InteractiveEmoji
+          userID={userID}
+          status={logInStatus}
+          pos={xPos}
+          error={error}
+        />
 
         {/* log in form */}
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -68,13 +89,17 @@ export default function InteractiveLogIn() {
               ID:
             </label>
             <input
-              className="px-2 py-1 grow text-black tracking-wider"
+              className="px-2 py-1 grow text-black tracking-wider font-mono"
               type="text"
               id="user_id"
               name="user_id"
               onChange={(e) => setID(e.target.value)}
+              onClick={(e) => setPosition(e)}
+              onKeyUp={(e) => setPosition(e)}
               onFocus={() => setStatus(StatusEnum.EDITING)}
+              onBlur={() => setXPos(null)}
               placeholder="test_user"
+              contentEditable
             />
           </div>
           {/* password */}
@@ -86,12 +111,15 @@ export default function InteractiveLogIn() {
               PW:
             </label>
             <input
-              className="px-2 py-1 grow text-black tracking-wider"
+              className="px-2 py-1 grow text-black tracking-wider font-mono"
               type="text"
               id="user_password"
               name="user_password"
               onChange={(e) => setPW(e.target.value)}
               onFocus={() => setStatus(StatusEnum.EDITING)}
+              onKeyUp={setPosition}
+              onClick={setPosition}
+              onBlur={() => setXPos(null)}
               placeholder="1234567890"
             />
           </div>
