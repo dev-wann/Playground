@@ -67,11 +67,9 @@ export default function InteractiveLogIn() {
 
   // event handler for password hide and show
   function toggleShowPW() {
-    if (showPW && logInStatus === StatusEnum.EDIT_PW_SHOW) {
-      setStatus(StatusEnum.EDIT_PW_HIDE);
-    } else if (!showPW && logInStatus === StatusEnum.EDIT_PW_HIDE) {
-      setStatus(StatusEnum.EDIT_PW_SHOW);
-    }
+    if (showPW) setStatus(StatusEnum.EDIT_PW_HIDE);
+    else setStatus(StatusEnum.EDIT_PW_SHOW);
+
     setShowPW(!showPW);
 
     const pwInput = document.getElementById('user_password');
@@ -85,13 +83,22 @@ export default function InteractiveLogIn() {
 
   // event handler for password input focus
   function handlePWFocus() {
-    if (
-      logInStatus === StatusEnum.EDIT_PW_HIDE ||
-      logInStatus === StatusEnum.EDIT_PW_SHOW
-    ) {
-      return;
-    }
-    setStatus(showPW ? StatusEnum.EDIT_PW_SHOW : StatusEnum.EDIT_PW_HIDE);
+    setStatus((status) => {
+      if (status === StatusEnum.EDIT_PW_HIDE || StatusEnum.EDIT_PW_SHOW) {
+        return status;
+      }
+      return showPW ? StatusEnum.EDIT_PW_SHOW : StatusEnum.EDIT_PW_HIDE;
+    });
+  }
+
+  // event handler for reset button
+  function handleReset() {
+    setID('');
+    setPW('');
+    setError(null);
+    setStatus(StatusEnum.IDLE);
+    setXPos(null);
+    setShowPW(false);
   }
 
   // icons
@@ -185,6 +192,14 @@ export default function InteractiveLogIn() {
             type="submit"
           >
             LOG IN
+          </button>
+          {/* reset button */}{' '}
+          <button
+            className="p-1 border-solid border-2 border-gray-400 text-gray-400 font-bold hover:border-white hover:text-white"
+            type="reset"
+            onClick={() => handleReset()}
+          >
+            RESET
           </button>
         </form>
       </div>
