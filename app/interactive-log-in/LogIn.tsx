@@ -146,7 +146,6 @@ export default function LogIn({
           onFocus={() => setStatus(StatusEnum.EDIT_ID)}
           onBlur={() => setXPos(null)}
           placeholder="test_user"
-          contentEditable
         />
       </div>
       {/* password */}
