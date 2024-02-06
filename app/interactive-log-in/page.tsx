@@ -4,15 +4,7 @@ import { useState } from 'react';
 import Instruction from '../components/Instruction';
 import InteractiveEmoji from './InteractiveEmoji';
 import LogIn from './LogIn';
-
-export enum StatusEnum {
-  IDLE,
-  EDIT_ID,
-  EDIT_PW_HIDE,
-  EDIT_PW_SHOW,
-  SUCCESS,
-  FAIL,
-}
+import { StatusEnum } from './StatusEnum';
 
 export default function InteractiveLogIn() {
   const [userID, setID] = useState('');

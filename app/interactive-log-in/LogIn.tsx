@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { StatusEnum } from './page';
+import { StatusEnum } from './StatusEnum';
 
 type Props = {
   userID: string;

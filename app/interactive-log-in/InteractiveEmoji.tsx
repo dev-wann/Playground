@@ -1,4 +1,4 @@
-import { StatusEnum } from './page';
+import { StatusEnum } from './StatusEnum';
 
 type Props = {
   userID: string;
