@@ -25,7 +25,14 @@ export default function InteractiveLogIn() {
   return (
     <>
       {/* instruction */}
-      <Instruction instructions={['']} />
+      <Instruction
+        instructions={[
+          'You can use a test ID and password:<br/>ID: test_user&emsp;password: 1234567890',
+          'The facial expression of the emoji and the message above it represent the log-in status.',
+          'The emoji follows your text cursor when you type ID or password (when set to visible).',
+          'You can reset everything with the RESET button at the bottom.',
+        ]}
+      />
 
       {/* log in section */}
       <div className="max-w-[360px] m-auto p-12">

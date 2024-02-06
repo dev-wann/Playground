@@ -1,3 +1,5 @@
+import { Markup } from 'interweave';
+
 type Props = {
   instructions: string[];
 };
@@ -8,7 +10,9 @@ export default function Instruction({ instructions }: Props) {
       <h1 className="text-2xl font-bold mb-1">Instruction</h1>
       <ol className="list-decimal pl-5">
         {instructions.map((str) => (
-          <li key={str}>{str}</li>
+          <li key={str}>
+            <Markup content={str} />
+          </li>
         ))}
       </ol>
     </div>
