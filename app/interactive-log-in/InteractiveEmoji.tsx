@@ -16,10 +16,19 @@ export default function InteractiveEmoji({
   // eyes
   const eyesIdle = (
     <>
-      <div className="absolute w-[10%] pt-[20%] top-[25%] left-[30%] bg-yellow-950 rounded-full" />
-      <div className="absolute w-[10%] pt-[20%] top-[25%] right-[30%] bg-yellow-950 rounded-full" />
+      <div className="absolute w-[10%] pt-[20%] top-[27%] left-[30%] bg-yellow-950 rounded-full" />
+      <div className="absolute w-[10%] pt-[20%] top-[27%] right-[30%] bg-yellow-950 rounded-full" />
     </>
   );
+  const eyesHalfClose = (
+    <>
+      <div className="absolute top-[15%] left-[20%] text-6xl text-yellow-950 text-center font-black">
+        &gt;
+      </div>
+      <div className="absolute w-[10%] pt-[20%] top-[27%] right-[30%] bg-yellow-950 rounded-full" />
+    </>
+  );
+
   const eyesSuccess = (
     <>
       <div className="absolute top-[15%] left-[20%] text-6xl text-yellow-950 text-center font-black">
@@ -56,9 +65,19 @@ export default function InteractiveEmoji({
   let message;
   let eyes, mouth;
   switch (status) {
-    case StatusEnum.EDITING:
-      message = '...';
+    case StatusEnum.EDIT_ID:
+      message = 'So, your ID is...';
       eyes = eyesIdle;
+      mouth = mouthEdit;
+      break;
+    case StatusEnum.EDIT_PW_HIDE:
+      message = 'I can see nothing!';
+      eyes = eyesSuccess;
+      mouth = mouthEdit;
+      break;
+    case StatusEnum.EDIT_PW_SHOW:
+      message = 'I might see something...?';
+      eyes = eyesHalfClose;
       mouth = mouthEdit;
       break;
     case StatusEnum.SUCCESS:
@@ -84,7 +103,10 @@ export default function InteractiveEmoji({
 
   // chase cursor when editing
   let translate = '';
-  if (status === StatusEnum.EDITING && pos !== null) {
+  if (
+    (status === StatusEnum.EDIT_ID || status === StatusEnum.EDIT_PW_SHOW) &&
+    pos !== null
+  ) {
     const x = (pos - 0.5) * 50;
     const y = (2 - Math.pow(2 * pos - 1, 2)) * 10;
     translate = `${x}px ${y}px`;

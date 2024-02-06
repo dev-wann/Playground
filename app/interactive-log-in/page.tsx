@@ -1,12 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import Instruction from '../components/Instruction';
 import InteractiveEmoji from './InteractiveEmoji';
 
 export enum StatusEnum {
   IDLE,
-  EDITING,
+  EDIT_ID,
+  EDIT_PW_HIDE,
+  EDIT_PW_SHOW,
   SUCCESS,
   FAIL,
 }
@@ -17,6 +20,7 @@ export default function InteractiveLogIn() {
   const [error, setError] = useState<string | null>(null);
   const [logInStatus, setStatus] = useState(StatusEnum.IDLE);
   const [xPos, setXPos] = useState<number | null>(null);
+  const [showPW, setShowPW] = useState(false);
 
   // sample ID & password
   const SAMPLE_ID = 'test_user';
@@ -48,8 +52,7 @@ export default function InteractiveLogIn() {
   }
 
   // event handler for tracking text input
-  function setPosition(e: React.SyntheticEvent) {
-    const elem = e.target;
+  function setPosition(elem: EventTarget | HTMLElement) {
     if (!(elem instanceof HTMLInputElement)) return;
 
     const rect = elem.getBoundingClientRect();
@@ -61,6 +64,53 @@ export default function InteractiveLogIn() {
 
     setXPos(cursorOffset / inputLength);
   }
+
+  // event handler for password hide and show
+  function toggleShowPW() {
+    if (showPW && logInStatus === StatusEnum.EDIT_PW_SHOW) {
+      setStatus(StatusEnum.EDIT_PW_HIDE);
+    } else if (!showPW && logInStatus === StatusEnum.EDIT_PW_HIDE) {
+      setStatus(StatusEnum.EDIT_PW_SHOW);
+    }
+    setShowPW(!showPW);
+
+    const pwInput = document.getElementById('user_password');
+    if (pwInput && pwInput instanceof HTMLInputElement) {
+      const end = pwInput.value.length;
+      pwInput.setSelectionRange(end, end);
+      pwInput.focus();
+      setPosition(pwInput);
+    }
+  }
+
+  // event handler for password input focus
+  function handlePWFocus() {
+    if (
+      logInStatus === StatusEnum.EDIT_PW_HIDE ||
+      logInStatus === StatusEnum.EDIT_PW_SHOW
+    ) {
+      return;
+    }
+    setStatus(showPW ? StatusEnum.EDIT_PW_SHOW : StatusEnum.EDIT_PW_HIDE);
+  }
+
+  // icons
+  const show = (
+    <Image
+      src="/images/interactive-log-in/eye.svg"
+      width={20}
+      height={20}
+      alt="show password"
+    />
+  );
+  const hide = (
+    <Image
+      src="/images/interactive-log-in/eye-off.svg"
+      width={20}
+      height={20}
+      alt="hide password"
+    />
+  );
 
   // render
   return (
@@ -86,17 +136,17 @@ export default function InteractiveLogIn() {
               className="inline-block w-10 text-lg font-bold font-mono"
               htmlFor="user_id"
             >
-              ID:
+              ID:&nbsp;
             </label>
             <input
-              className="px-2 py-1 grow text-black tracking-wider font-mono"
+              className="px-2 py-1 min-w-[144px] grow shrink text-black tracking-wider font-mono"
               type="text"
               id="user_id"
               name="user_id"
               onChange={(e) => setID(e.target.value)}
-              onClick={(e) => setPosition(e)}
-              onKeyUp={(e) => setPosition(e)}
-              onFocus={() => setStatus(StatusEnum.EDITING)}
+              onClick={(e) => setPosition(e.target)}
+              onKeyUp={(e) => setPosition(e.target)}
+              onFocus={() => setStatus(StatusEnum.EDIT_ID)}
               onBlur={() => setXPos(null)}
               placeholder="test_user"
               contentEditable
@@ -108,20 +158,26 @@ export default function InteractiveLogIn() {
               className="inline-block w-10 text-lg font-bold font-mono"
               htmlFor="user_password"
             >
-              PW:
+              PW:&nbsp;
             </label>
             <input
-              className="px-2 py-1 grow text-black tracking-wider font-mono"
-              type="text"
+              className="pl-2 py-1 min-w-[120px] grow shrink text-black tracking-wider font-mono"
+              type={showPW ? 'text' : 'password'}
               id="user_password"
               name="user_password"
               onChange={(e) => setPW(e.target.value)}
-              onFocus={() => setStatus(StatusEnum.EDITING)}
-              onKeyUp={setPosition}
-              onClick={setPosition}
+              onFocus={() => handlePWFocus()}
+              onKeyUp={(e) => setPosition(e.target)}
+              onClick={(e) => setPosition(e.target)}
               onBlur={() => setXPos(null)}
               placeholder="1234567890"
             />
+            <div
+              className="flex items-center w-[24px] h-[32px] shrink-0 bg-white cursor-pointer"
+              onClick={() => toggleShowPW()}
+            >
+              {showPW ? show : hide}
+            </div>
           </div>
           {/* submit button */}
           <button
