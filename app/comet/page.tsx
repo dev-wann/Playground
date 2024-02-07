@@ -27,8 +27,8 @@ export default function Comet() {
       />
 
       {/* canvas to draw comet */}
-      <div className="absolute top-0 left-0 w-screen h-screen">
-        <canvas id="canvas_comet" />
+      <div className="absolute top-0 left-0 w-screen h-screen -z-10">
+        <canvas id="canvas_comet" className="-z-10" />
       </div>
     </>
   );
