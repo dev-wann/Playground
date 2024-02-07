@@ -11,10 +11,10 @@ export default function Home() {
         <div>
           <h1 className="pt-4 pb-2 text-2xl font-bold">About</h1>
           <p className="px-2 pb-2 text-lg indent-8 leading-tight">
-            Hi, I'm Seungwan Cho, a front-end developer, and this is my personal
-            archive site. I'm collecting interesting web UIs that I've made or
-            seen somewhere before. Most of them are built with React and
-            TypeScript, and you can get the source code on my GitHub.
+            Hi, I&apos;m Seungwan Cho, a front-end developer, and this is my
+            personal archive site. I&apos;m collecting interesting web UIs that
+            I&apos;ve made or seen somewhere before. Most of them are built with
+            React and TypeScript, and you can get the source code on my GitHub.
           </p>
         </div>
 
