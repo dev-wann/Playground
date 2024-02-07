@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Instruction from '../components/Instruction';
+import Instruction from '../_components/Instruction';
 import styles from './Bento.module.scss';
 import GlowOnHoverBox from './GlowOnHoverBox';
 
