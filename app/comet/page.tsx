@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Instruction from '../components/Instruction';
+import Instruction from '../_components/Instruction';
 import {
   initCometCanvas,
   startCometCanvas,

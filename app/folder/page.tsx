@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Instruction from '../components/Instruction';
+import Instruction from '../_components/Instruction';
 import Content from './Content';
 import styles from './Folder.module.css';
 import {
