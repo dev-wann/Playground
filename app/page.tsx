@@ -39,7 +39,7 @@ export default function Home() {
             />
             <LinkButton
               name="Portfolio"
-              href="https://github.com/dev-wann/Playground"
+              href="https://portfolio-dev-wann.vercel.app/"
               imgSrc="/images/me.jpg"
             />
           </div>
