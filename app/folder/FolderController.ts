@@ -1,7 +1,7 @@
 let timeoutID: number;
 
 export function organizeFolder() {
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
   if (!folder) return;
   const pageNum = folder.children.length;
 
@@ -10,6 +10,7 @@ export function organizeFolder() {
     page.style.zIndex = `${pageNum - i}`;
     page.style.left = `${(i * 20) / (pageNum - 1)}px`;
     page.style.bottom = `${(i * 20) / (pageNum - 1) + 40}px`;
+
     if (i !== 0 && i !== pageNum - 1) {
       // index 정렬
       let indexFace = page.children.item(0)?.children.item(0) as HTMLElement;
@@ -17,24 +18,26 @@ export function organizeFolder() {
       let left = `calc(1vw + (100% - 2vw - var(--index-width)) * ${
         (i - 1) / (pageNum - 3)
       })`;
+
       if (indexFace && indexBack) {
         indexFace.style.left = left;
         indexBack.style.left = left;
       }
     }
   }
+
   adjustBrightness(0);
 }
 
 export function induceFlip(page: number, flipped?: boolean) {
   if (page !== 0) return;
-  const coverFace = document.getElementById('folder')?.firstChild
+  const coverFace = document.getElementById("folder")?.firstChild
     ?.firstChild as HTMLElement;
-  const coverBack = document.getElementById('folder')?.firstChild
+  const coverBack = document.getElementById("folder")?.firstChild
     ?.lastChild as HTMLElement;
   if (!coverFace || !coverBack) return;
-  coverFace.style.transform = flipped ? 'rotateX(0deg)' : 'rotateX(-15deg)';
-  coverBack.style.transform = flipped ? 'rotateX(0deg)' : 'rotateX(-15deg)';
+  coverFace.style.transform = flipped ? "rotateX(0deg)" : "rotateX(-15deg)";
+  coverBack.style.transform = flipped ? "rotateX(0deg)" : "rotateX(-15deg)";
   timeoutID = window.setTimeout(() => {
     if (!flipped) induceFlip(page, true);
   }, 500);
@@ -42,7 +45,7 @@ export function induceFlip(page: number, flipped?: boolean) {
 
 export function flipBack(page: number) {
   clearTimeout(timeoutID);
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
   if (!folder) return false;
   const pageNum = folder.children.length;
   if (page >= pageNum - 1) return false;
@@ -52,8 +55,9 @@ export function flipBack(page: number) {
 
   for (let i = 0; i < curPage.children.length; i += 1) {
     let child = curPage.children.item(i) as HTMLElement;
-    child.style.transform = 'rotateX(-100deg)';
+    child.style.transform = "rotateX(-100deg)";
   }
+
   curPage.style.zIndex = `${page + pageNum}`;
 
   // flipForward 시 backface 순서 역전되는 현상 방지
@@ -68,7 +72,7 @@ export function flipBack(page: number) {
 
 export function flipForward(page: number) {
   if (page <= 0) return false;
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
   if (!folder) return false;
 
   let curPage = folder.children.item(page - 1) as HTMLElement;
@@ -76,8 +80,9 @@ export function flipForward(page: number) {
 
   for (let i = 0; i < curPage.children.length; i += 1) {
     let child = curPage.children.item(i) as HTMLElement;
-    child.style.transform = 'rotateX(0)';
+    child.style.transform = "rotateX(0)";
   }
+
   curPage.style.zIndex = `${folder.children.length - page + 1}`;
 
   adjustBrightness(page - 1);
@@ -86,25 +91,28 @@ export function flipForward(page: number) {
 }
 
 export function initFlip() {
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
   if (!folder) return false;
 
   let time = 0;
+
   for (let i = folder.children.length - 1; i >= 0; i -= 1) {
     setTimeout(() => {
       flipForward(i);
     }, time);
     time += 100;
   }
+
   adjustBrightness(0);
 }
 
 function adjustBrightness(start: number) {
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
   if (!folder) return;
   const pageNum = folder.children.length;
 
   let page;
+
   // pages flipped
   for (let i = 0; i < start; i += 1) {
     page = folder.children.item(i) as HTMLElement;
@@ -112,6 +120,7 @@ function adjustBrightness(start: number) {
       80 - (40 / (pageNum - 1)) * (start - i)
     }%)`;
   }
+
   // pages not flipped
   for (let i = start; i < pageNum; i += 1) {
     page = folder.children.item(i) as HTMLElement;
@@ -122,6 +131,7 @@ function adjustBrightness(start: number) {
 }
 
 export function isLastPage(page: number) {
-  const folder = document.getElementById('folder');
+  const folder = document.getElementById("folder");
+
   return folder?.children.length === page + 1;
 }

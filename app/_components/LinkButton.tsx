@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   name: string;
@@ -9,9 +9,9 @@ type Props = {
 
 export default function LinkButton({ name, href, imgSrc }: Props) {
   return (
-    <button className="min-w-36 px-2 py-1 border-solid border-2 border-gray-400 hover:border-white transition rounded-lg">
+    <button className="min-w-36 rounded-lg border-2 border-solid border-gray-400 px-2 py-1 transition hover:border-white">
       <Link
-        className="flex justify-left items-center gap-2 "
+        className="flex items-center gap-2"
         href={href}
         prefetch={false}
         target="_blank"
