@@ -8,8 +8,8 @@ const BLACKOUT_TIME = 3000;
 const COMET_RADIUS = 10;
 const COMET_Z = 800;
 const COMET_RATIO = 1.2;
-const COMET_COLOR = '#81c1e7';
-const COMET_SHADOW_COLOR = '#fff8f8';
+const COMET_COLOR = "#81c1e7";
+const COMET_SHADOW_COLOR = "#fff8f8";
 
 const backgroundParticles = new Array(PARTICLE_NUM);
 const cometParticles = new Array(PARTICLE_NUM * COMET_RATIO);
@@ -73,39 +73,39 @@ class CometParticle extends Particle {
 }
 
 export function initCometCanvas() {
-  const canvas = document.getElementById('canvas_comet');
+  const canvas = document.getElementById("canvas_comet");
 
   // event handling
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     resize(canvas);
   });
 
   document.addEventListener(
-    'mousemove',
+    "mousemove",
     (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     },
-    false
+    false,
   );
 
   document.addEventListener(
-    'mousedown',
+    "mousedown",
     (e) => {
       if (e.button !== 0) return; // treat only left button
       targetSpeed = BOOST_SPEED;
       startTime = new Date();
     },
-    false
+    false,
   );
 
   document.addEventListener(
-    'mouseup',
+    "mouseup",
     () => {
       targetSpeed = DEFAULT_SPEED;
       startTime = undefined;
     },
-    false
+    false,
   );
 
   resize(canvas);
@@ -114,12 +114,14 @@ export function initCometCanvas() {
 
   // create particles
   let particle;
+
   for (let i = 0; i < PARTICLE_NUM; i++) {
     particle = new Particle();
     particle.randomize();
     particle.z -= 500 * Math.random();
     backgroundParticles[i] = particle;
   }
+
   for (let i = 0; i < PARTICLE_NUM * COMET_RATIO; i++) {
     particle = new CometParticle();
     particle.randomize();
@@ -144,8 +146,8 @@ function resize(canvas) {
   canvasHeight = canvas.height = window.innerHeight;
   centerX = canvasWidth * 0.5;
   centerY = canvasHeight * 0.5;
-  context = canvas.getContext('2d');
-  context.fillStyle = 'rgb(255, 255, 255)';
+  context = canvas.getContext("2d");
+  context.fillStyle = "rgb(255, 255, 255)";
 }
 
 function draw() {
@@ -207,6 +209,7 @@ function drawComet(speed, cx, cy) {
   context.globalAlpha = 0.25;
   context.arc(px, py, pr + blurRad, 0, 2 * pi);
   context.closePath();
+
   for (let i = 0; i < 8; i += 1) {
     let [dx, dy] = blurArr[i];
     dx *= blurRad;
@@ -216,6 +219,7 @@ function drawComet(speed, cx, cy) {
     context.lineTo(px + dx + pr * cos(a2), py + dy + pr * sin(a2));
     context.closePath();
   }
+
   context.fill();
   context.globalAlpha = 1;
 
@@ -274,6 +278,7 @@ function drawCometParticles(speed, cx, cy) {
     p.x += (p.dx * Math.pow(p.z, 2)) / Math.pow(2, 20);
     p.y += (p.dy * Math.pow(p.z, 2)) / Math.pow(2, 20);
   }
+
   context.fill();
   context.restore();
 }
@@ -286,7 +291,8 @@ function drawBackgroundParticles(speed, cx, cy) {
   let a, a1, a2;
 
   context.beginPath();
-  context.fillStyle = 'rgb(255, 255, 255)';
+  context.fillStyle = "rgb(255, 255, 255)";
+
   for (let i = 0; i < PARTICLE_NUM; i++) {
     p = backgroundParticles[i];
 
@@ -321,6 +327,7 @@ function drawBackgroundParticles(speed, cx, cy) {
     context.arc(x, y, r, a2, a1, true);
     context.closePath();
   }
+
   context.fill();
 }
 
@@ -330,9 +337,10 @@ function drawBlackout(cx, cy) {
   } else {
     blackoutProgress = Math.min(
       1,
-      (new Date() - startTime - BLACKOUT_TIME) / 500
+      (new Date() - startTime - BLACKOUT_TIME) / 500,
     );
   }
+
   if (blackoutProgress <= 0) return;
 
   context.save();
@@ -349,7 +357,7 @@ function drawBlackout(cx, cy) {
   px = cx + rx * pf;
   py = cy + ry * pf;
 
-  context.fillStyle = 'rgb(0, 0, 0)';
+  context.fillStyle = "rgb(0, 0, 0)";
   context.beginPath();
   context.moveTo(px, py);
   context.arc(px, py, radius, 0, 2 * pi);
