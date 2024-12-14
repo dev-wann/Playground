@@ -1,4 +1,4 @@
-import styles from './Folder.module.css';
+import styles from "./Folder.module.css";
 
 export default function Content({ page }: { page: number }) {
   const content = (

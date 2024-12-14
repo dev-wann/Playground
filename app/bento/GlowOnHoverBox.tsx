@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import styles from './Bento.module.scss';
+import styles from "./Bento.module.scss";
 
 export default function GlowOnHoverBox({
   children,
@@ -13,11 +13,11 @@ export default function GlowOnHoverBox({
   const chaseCursor = (e: React.MouseEvent) => {
     const elem = e.currentTarget as HTMLElement;
     const { x, y } = elem.getBoundingClientRect();
-    elem.style.setProperty('--x', `${e.clientX - x}px`);
-    elem.style.setProperty('--y', `${e.clientY - y}px`);
+    elem.style.setProperty("--x", `${e.clientX - x}px`);
+    elem.style.setProperty("--y", `${e.clientY - y}px`);
   };
 
-  const computedClassName = `${styles['glow-box']} ${className} observe`;
+  const computedClassName = `${styles["glow-box"]} ${className} observe`;
 
   return (
     <div className={computedClassName} onMouseMove={chaseCursor}>

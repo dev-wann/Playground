@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import Instruction from '../_components/Instruction';
-import Content from './Content';
-import styles from './Folder.module.css';
+import { useEffect, useRef } from "react";
+import Instruction from "../_components/Instruction";
+import Content from "./Content";
+import styles from "./Folder.module.css";
 import {
   flipBack,
   flipForward,
@@ -11,7 +11,7 @@ import {
   initFlip,
   isLastPage,
   organizeFolder,
-} from './FolderController';
+} from "./FolderController";
 
 export default function Folder() {
   const page = useRef(0);
@@ -29,13 +29,14 @@ export default function Folder() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.at(0)?.isIntersecting) return;
+
         if (page.current > 0) {
           page.current = 0;
           initFlip();
           isAnimating.current = true;
         }
       },
-      { threshold: 0.75 }
+      { threshold: 0.75 },
     );
 
     if (folderRef.current) observer.observe(folderRef.current);
@@ -49,6 +50,7 @@ export default function Folder() {
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     if (isAnimating.current) return;
+
     if (e.button === 0) {
       if (flipBack(page.current)) {
         page.current++;
@@ -64,6 +66,7 @@ export default function Folder() {
 
   const handleDoubleClick = () => {
     if (isAnimating.current) return;
+
     if (isLastPage(page.current)) {
       page.current = 0;
       initFlip();
@@ -81,10 +84,10 @@ export default function Folder() {
       {/* instruction */}
       <Instruction
         instructions={[
-          'Left click on the folder to flip the page forward.',
-          'Right click on the folder to flip the page backward.',
-          'Double click on the last page to close the folder.',
-          'Folder will be closed automatically if it goes out of viewport.',
+          "Left click on the folder to flip the page forward.",
+          "Right click on the folder to flip the page backward.",
+          "Double click on the last page to close the folder.",
+          "Folder will be closed automatically if it goes out of viewport.",
         ]}
       />
 
@@ -101,7 +104,7 @@ export default function Folder() {
             {/* front cover */}
             <div
               className={`${styles.frontCover} ${[
-                page.current === 0 ? styles.induceFlip : '',
+                page.current === 0 ? styles.induceFlip : "",
               ]}`}
             >
               <div>
