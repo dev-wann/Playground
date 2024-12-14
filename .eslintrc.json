@@ -42,6 +42,14 @@
       { "blankLine": "always", "prev": "*", "next": "multiline-block-like" },
       { "blankLine": "always", "prev": "multiline-block-like", "next": "*" }
     ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxEOF": 1,
+        "maxBOF": 0
+      }
+    ],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-relative-import-paths/no-relative-import-paths": [
       "warn",
