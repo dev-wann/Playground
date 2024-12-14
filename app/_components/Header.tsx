@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import itemList from '@/app/_res/itemList.json';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import itemList from "@/app/_res/itemList.json";
 
 export default function Header() {
   const pathname = usePathname();
   const title =
     itemList.filter((item) => item.href === pathname).at(0)?.title ||
-    'Playground';
+    "Playground";
 
   return (
-    <h1 className="text-4xl font-bold text-center p-4 mt-4">
+    <h1 className="mt-4 p-4 text-center text-4xl font-bold">
       {title}
       <Link
         href={
-          pathname === '/'
-            ? 'https://github.com/dev-wann/Playground'
+          pathname === "/"
+            ? "https://github.com/dev-wann/Playground"
             : `https://github.com/dev-wann/Playground/tree/master/app/${pathname}`
         }
         target="_blank"
@@ -29,7 +29,7 @@ export default function Header() {
           width={36}
           height={36}
           alt="link to github"
-          className="inline-block mb-2 invert-[50%] hover:invert-0 transition"
+          className="mb-2 inline-block invert-[50%] transition hover:invert-0"
         />
       </Link>
       <Link href="/" className="ml-2">
@@ -38,7 +38,7 @@ export default function Header() {
           width={36}
           height={36}
           alt="link to home"
-          className="inline-block mb-2 invert-[50%] hover:invert transition"
+          className="mb-2 inline-block invert-[50%] transition hover:invert"
         />
       </Link>
     </h1>
