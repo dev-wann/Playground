@@ -1,4 +1,7 @@
 import { Markup } from 'interweave';
+import { polyfill } from 'interweave-ssr';
+
+polyfill();
 
 type Props = {
   instructions: string[];
