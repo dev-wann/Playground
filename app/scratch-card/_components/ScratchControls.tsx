@@ -1,14 +1,25 @@
+import { ScratchCardControls } from "../_hooks/useScratchCardController";
+import PercentageInput from "./PercentageInput";
+
 interface Props {
+  threshold: number;
   probability: number;
-  setProbability: (probability: number) => void;
-  reset: () => void;
+  controls: ScratchCardControls;
 }
 
 export default function ScratchControls({
+  threshold,
   probability,
-  setProbability,
-  reset,
+  controls,
 }: Props) {
+  const { setThreshold, setProbability, reset } = controls;
+
+  const handleThresholdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = +parseFloat(e.target.value).toFixed(2);
+    const clampedValue = Math.min(Math.max(inputValue, 0), 100);
+    setThreshold(clampedValue / 100);
+  };
+
   const handleProbabilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = +parseFloat(e.target.value).toFixed(2);
     const clampedValue = Math.min(Math.max(inputValue, 0), 100);
@@ -16,17 +27,18 @@ export default function ScratchControls({
   };
 
   return (
-    <section className="flex flex-col gap-4">
-      <label className="input input-sm input-bordered flex items-center gap-2">
-        <span className="text-base-content">Probability</span>
-        <input
-          className="w-12 grow text-right"
-          type="number"
-          value={probability * 100}
-          onChange={handleProbabilityChange}
-        />
-        <span className="text-base-content">%</span>
-      </label>
+    <section className="flex gap-4">
+      <PercentageInput
+        label="Threshold"
+        value={threshold}
+        onChange={handleThresholdChange}
+      />
+
+      <PercentageInput
+        label="Probability"
+        value={probability}
+        onChange={handleProbabilityChange}
+      />
 
       <button className="btn btn-sm" onClick={reset}>
         Reset Scratch Card
