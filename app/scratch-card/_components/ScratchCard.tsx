@@ -1,6 +1,7 @@
 import { ScratchCardStatus } from "../_constants";
 import { ScratchCardControls } from "../_hooks/useScratchCardController";
 import ScratchCover from "./ScratchCover";
+import { cn } from "@/app/_utils";
 
 interface Props {
   status: ScratchCardStatus;
@@ -9,10 +10,36 @@ interface Props {
 }
 
 export default function ScratchCard({ status, isWinning, controls }: Props) {
+  const isLoading = status === ScratchCardStatus.IDLE;
+  const isCompleted = status === ScratchCardStatus.COMPLETED;
+
   return (
-    <section className="relative flex h-[360px] w-[640px] cursor-pointer select-none flex-col items-center justify-center">
-      {isWinning ? <Win /> : <Lose />}
-      <ScratchCover status={status} controls={controls} />
+    <section
+      className={cn(
+        "relative h-[360px] w-[640px] select-none [perspective:1000px] [transform-style:preserve-3d]",
+        "scale-95 transition-transform duration-300 hover:scale-100",
+        isCompleted && "scale-100",
+        isLoading && "opacity-0",
+      )}
+    >
+      {/* card front */}
+      <div
+        className={cn(
+          "absolute inset-0 flex size-full flex-col items-center justify-center overflow-hidden rounded-xl [backface-visibility:hidden]",
+          isCompleted && "animate-card-flip-front",
+        )}
+      >
+        {isWinning ? <Win /> : <Lose />}
+        <ScratchCover status={status} controls={controls} />
+      </div>
+
+      {/* card back */}
+      <div
+        className={cn(
+          "bg-gradient-gold absolute inset-0 size-full overflow-hidden rounded-xl [backface-visibility:hidden] [transform:rotateY(180deg)]",
+          isCompleted && "animate-card-flip-back",
+        )}
+      />
     </section>
   );
 }
