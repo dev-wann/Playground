@@ -11,7 +11,14 @@ export default function ScratchCardPage() {
 
   return (
     <main className="flex flex-col items-center">
-      <Instruction instructions={["aaa", "bbb", "ccc"]} />
+      <Instruction
+        instructions={[
+          "Hold and drag mouse to scratch the card.",
+          "Set threshold to control required scratch area.",
+          "Adjust winning probability.",
+          "Click [Reset Scratch Card] to start over.",
+        ]}
+      />
       <div className="flex flex-col items-center gap-8 p-12">
         <ScratchControls
           threshold={threshold}
