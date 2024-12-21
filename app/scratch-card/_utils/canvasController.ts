@@ -7,6 +7,8 @@ import {
 export default class ScratchController {
   private canvas: HTMLCanvasElement | null = null;
   private isScratching = false;
+  private prevX: number | null = null;
+  private prevY: number | null = null;
 
   init() {
     this.isScratching = false;
@@ -48,10 +50,30 @@ export default class ScratchController {
 
   startScratch() {
     this.isScratching = true;
+    this.prevX = null;
+    this.prevY = null;
+  }
+
+  checkAndRestartScratch(event: React.MouseEvent<HTMLCanvasElement>) {
+    if (!this.isScratching) return;
+
+    this.prevX = null;
+    this.prevY = null;
+
+    if (event.buttons !== 1) {
+      this.isScratching = false;
+    }
   }
 
   stopScratch() {
     this.isScratching = false;
+    this.prevX = null;
+    this.prevY = null;
+  }
+
+  pauseScratch() {
+    this.prevX = null;
+    this.prevY = null;
   }
 
   scratch(event: React.MouseEvent<HTMLCanvasElement>) {
@@ -65,10 +87,37 @@ export default class ScratchController {
     }
 
     const { offsetX, offsetY } = event.nativeEvent;
+    this.scratchLine(
+      ctx,
+      this.prevX || offsetX,
+      this.prevY || offsetY,
+      offsetX,
+      offsetY,
+    );
+
+    this.prevX = offsetX;
+    this.prevY = offsetY;
+  }
+
+  private scratchLine(
+    ctx: CanvasRenderingContext2D,
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+  ) {
+    const diff = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    const step = Math.min(diff / 60, 1);
+
     ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(offsetX, offsetY, SCRATCH_RADIUS, 0, 2 * Math.PI);
-    ctx.fill();
+
+    for (let i = 0; i < diff; i += step) {
+      const x = x1 + ((x2 - x1) * i) / diff;
+      const y = y1 + ((y2 - y1) * i) / diff;
+      ctx.beginPath();
+      ctx.arc(x, y, SCRATCH_RADIUS, 0, 2 * Math.PI);
+      ctx.fill();
+    }
   }
 
   calculateProgress() {

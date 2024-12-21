@@ -6,6 +6,8 @@ import { determineWinningStatus } from "@/app/scratch-card/_utils";
 export interface ScratchCardControls {
   startScratch: () => void;
   stopScratch: () => void;
+  pauseScratch: () => void;
+  checkAndRestartScratch: (event: React.MouseEvent<HTMLCanvasElement>) => void;
   scratch: (event: React.MouseEvent<HTMLCanvasElement>) => void;
   reset: () => void;
   setThreshold: (threshold: number) => void;
@@ -46,6 +48,9 @@ export function useScratchCardController() {
     controls: {
       startScratch: () => controller.startScratch(),
       stopScratch: () => controller.stopScratch(),
+      checkAndRestartScratch: (event: React.MouseEvent<HTMLCanvasElement>) =>
+        controller.checkAndRestartScratch(event),
+      pauseScratch: () => controller.pauseScratch(),
       scratch,
       reset,
       setThreshold,
