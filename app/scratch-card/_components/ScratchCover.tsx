@@ -8,7 +8,13 @@ interface Props {
 }
 
 export default function ScratchCover({ status, controls }: Props) {
-  const { startScratch, stopScratch, scratch } = controls;
+  const {
+    startScratch,
+    stopScratch,
+    pauseScratch,
+    checkAndRestartScratch,
+    scratch,
+  } = controls;
   const isShowCover = status !== ScratchCardStatus.COMPLETED;
 
   return (
@@ -20,6 +26,8 @@ export default function ScratchCover({ status, controls }: Props) {
       )}
       onMouseDown={() => startScratch()}
       onMouseUp={() => stopScratch()}
+      onMouseLeave={() => pauseScratch()}
+      onMouseEnter={(e) => checkAndRestartScratch(e)}
       onMouseMove={(e) => scratch(e)}
     />
   );
