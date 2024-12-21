@@ -28,16 +28,16 @@ export function useScratchCardController() {
     setStatus(ScratchCardStatus.COMPLETED);
   };
 
-  const reset = () => {
+  const initScratchCard = (delay: number) => {
     setStatus(ScratchCardStatus.IDLE);
-    setIsWinning(determineWinningStatus(probability));
+    setTimeout(() => setIsWinning(determineWinningStatus(probability)), delay);
     controller.init()?.then(() => {
       setStatus(ScratchCardStatus.READY);
     });
   };
 
   useEffect(() => {
-    reset();
+    initScratchCard(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,7 +53,7 @@ export function useScratchCardController() {
         controller.checkAndRestartScratch(event),
       pauseScratch: () => controller.pauseScratch(),
       scratch,
-      reset,
+      reset: () => initScratchCard(500),
       setThreshold,
       setProbability,
     },
