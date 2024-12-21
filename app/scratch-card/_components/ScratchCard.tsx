@@ -36,7 +36,7 @@ export default function ScratchCard({ status, isWinning, controls }: Props) {
       {/* card back */}
       <div
         className={cn(
-          "bg-gradient-gold absolute inset-0 size-full overflow-hidden rounded-xl [backface-visibility:hidden] [transform:rotateY(180deg)]",
+          "absolute inset-0 size-full overflow-hidden rounded-xl bg-gradient-gold [backface-visibility:hidden] [transform:rotateY(180deg)]",
           isCompleted && "animate-card-flip-back",
         )}
       />
