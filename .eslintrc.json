@@ -33,14 +33,22 @@
     "turbo/no-undeclared-env-vars": "off",
     "no-extra-boolean-cast": "warn",
     "@typescript-eslint/no-empty-function": "off",
-    "newline-before-return": "error",
     "comma-dangle": ["error", "always-multiline"],
+    "import/newline-after-import": ["error", { "count": 1 }],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "function", "next": "*" },
       { "blankLine": "always", "prev": "*", "next": "function" },
       { "blankLine": "always", "prev": "*", "next": "multiline-block-like" },
       { "blankLine": "always", "prev": "multiline-block-like", "next": "*" }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxEOF": 1,
+        "maxBOF": 0
+      }
     ],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-relative-import-paths/no-relative-import-paths": [
