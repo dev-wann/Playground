@@ -1,3 +1,4 @@
+import { Gift, SmileyMelting } from "@phosphor-icons/react";
 import { ScratchCardStatus } from "../_constants";
 import { ScratchCardControls } from "../_hooks/useScratchCardController";
 import ScratchCover from "./ScratchCover";
@@ -46,17 +47,33 @@ export default function ScratchCard({ status, isWinning, controls }: Props) {
 
 function Win() {
   return (
-    <div className="absolute inset-0 flex size-full flex-col items-center justify-center bg-gray-400">
-      <p>You won!</p>
-      <p>Congratulations</p>
+    <div className="absolute inset-0 flex size-full items-center justify-center bg-gray-800">
+      <div className="m-auto flex gap-4">
+        <div className="flex flex-col">
+          <p className="text-4xl font-bold leading-snug text-white">
+            PLAYGROUND
+          </p>
+          <p className="text-right text-2xl font-light leading-none text-white">
+            gift card
+          </p>
+          <div className="grow" />
+          <p className="text-[70px] font-medium leading-tight text-white">
+            $ 1,000
+          </p>
+        </div>
+        <Gift className="-mb-12 -mr-8 -mt-4 size-80" weight="light" />
+      </div>
     </div>
   );
 }
 
 function Lose() {
   return (
-    <div className="absolute inset-0 flex size-full flex-col items-center justify-center bg-gray-400">
-      <p>Maybe next time</p>
+    <div className="absolute inset-0 flex size-full flex-col items-center justify-center gap-4 bg-gray-800">
+      <SmileyMelting className="size-40" weight="light" />
+      <p className="text-4xl font-light leading-snug text-white">
+        Maybe next time...
+      </p>
     </div>
   );
 }
