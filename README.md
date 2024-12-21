@@ -8,6 +8,12 @@ Link: https://playground-dev-wann.vercel.app/
 
 # Items (from new to old)
 
+## Scratch Card
+![thumbnail](https://github.com/user-attachments/assets/8b4d6b8e-5e4a-40eb-bfc5-5a60f32952b3)
+- A scratch card (or scratch lottery) for e-commerce events.
+- Scratch the card by hold and drag your mouse on it.
+- You can set the threshold to reveal the result and probability to win.
+
 ## Interactive Log In  
 ![thumbnail](https://github.com/dev-wann/Playground/assets/89072661/4cefad11-a91d-441c-8215-5853c12d6ccb)
 - An interactive login form with an emoji and a message.
