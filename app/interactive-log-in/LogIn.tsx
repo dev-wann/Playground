@@ -143,7 +143,7 @@ export default function LogIn({
           ID:&nbsp;
         </label>
         <input
-          className="min-w-[144px] shrink grow px-2 py-1 font-mono tracking-wider text-black"
+          className="min-w-[144px] shrink grow rounded-sm bg-white px-2 py-1 font-mono tracking-wider text-black"
           type="text"
           id="user_id"
           name="user_id"
@@ -164,7 +164,7 @@ export default function LogIn({
           PW:&nbsp;
         </label>
         <input
-          className="min-w-[120px] shrink grow py-1 pl-2 font-mono tracking-wider text-black"
+          className="min-w-[120px] shrink grow rounded-l-sm bg-white py-1 pl-2 font-mono tracking-wider text-black"
           type={showPW ? "text" : "password"}
           id="user_password"
           name="user_password"
@@ -176,7 +176,7 @@ export default function LogIn({
           placeholder="1234567890"
         />
         <div
-          className="flex h-[32px] w-[24px] shrink-0 cursor-pointer items-center bg-white"
+          className="flex h-[32px] w-[24px] shrink-0 cursor-pointer items-center rounded-r-sm bg-white"
           onClick={() => toggleShowPW()}
         >
           {showPW ? show : hide}
