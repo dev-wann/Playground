@@ -16,35 +16,35 @@ export default function InteractiveEmoji({
   // eyes
   const eyesIdle = (
     <>
-      <div className="absolute left-[30%] top-[27%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
-      <div className="absolute right-[30%] top-[27%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
+      <div className="absolute top-[27%] left-[30%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
+      <div className="absolute top-[27%] right-[30%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
     </>
   );
   const eyesHalfClose = (
     <>
-      <div className="absolute left-[20%] top-[15%] text-center text-6xl font-black text-yellow-950">
+      <div className="absolute top-[15%] left-[20%] text-center text-6xl font-black text-yellow-950">
         &gt;
       </div>
-      <div className="absolute right-[30%] top-[27%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
+      <div className="absolute top-[27%] right-[30%] w-[10%] rounded-full bg-yellow-950 pt-[20%]" />
     </>
   );
 
   const eyesSuccess = (
     <>
-      <div className="absolute left-[20%] top-[15%] text-center text-6xl font-black text-yellow-950">
+      <div className="absolute top-[15%] left-[20%] text-center text-6xl font-black text-yellow-950">
         &gt;
       </div>
-      <div className="absolute right-[20%] top-[15%] text-center text-6xl font-black text-yellow-950">
+      <div className="absolute top-[15%] right-[20%] text-center text-6xl font-black text-yellow-950">
         &lt;
       </div>
     </>
   );
   const eyesFail = (
     <>
-      <div className="absolute left-[20%] top-1/4 text-center text-5xl font-black text-yellow-950">
+      <div className="absolute top-1/4 left-[20%] text-center text-5xl font-black text-yellow-950">
         X
       </div>
-      <div className="absolute right-[20%] top-1/4 text-center text-5xl font-black text-yellow-950">
+      <div className="absolute top-1/4 right-[20%] text-center text-5xl font-black text-yellow-950">
         X
       </div>
     </>
@@ -52,13 +52,13 @@ export default function InteractiveEmoji({
 
   // mouth
   const mouthIdle = (
-    <div className="absolute left-[20%] top-[60%] w-3/5 rounded-b-full bg-yellow-950 pt-[30%]" />
+    <div className="absolute top-[60%] left-[20%] w-3/5 rounded-b-full bg-yellow-950 pt-[30%]" />
   );
   const mouthEdit = (
-    <div className="absolute left-[40%] top-[60%] w-1/5 rounded-full bg-yellow-950 pt-[25%]" />
+    <div className="absolute top-[60%] left-[40%] w-1/5 rounded-full bg-yellow-950 pt-[25%]" />
   );
   const mouthFail = (
-    <div className="absolute left-[30%] top-[70%] w-2/5 bg-yellow-950 pt-[5%]" />
+    <div className="absolute top-[70%] left-[30%] w-2/5 bg-yellow-950 pt-[5%]" />
   );
 
   // set message & facial expressions
@@ -122,17 +122,17 @@ export default function InteractiveEmoji({
         <p className={status === StatusEnum.FAIL ? "text-red-500" : ""}>
           {message}
         </p>
-        <div className="absolute right-[15%] top-full border-8 border-solid border-transparent border-t-white" />
+        <div className="absolute top-full right-[15%] border-8 border-solid border-transparent border-t-white" />
       </div>
 
       {/* face */}
       <div className="relative m-auto mb-8 w-3/5 pt-[60%]">
         {/* background */}
-        <div className="absolute left-0 top-0 size-full rounded-full bg-yellow-400" />
+        <div className="absolute top-0 left-0 size-full rounded-full bg-yellow-400" />
 
         {/* facial expression */}
         <div
-          className="absolute left-0 top-0 size-full transition-[translate] duration-500"
+          className="absolute top-0 left-0 size-full transition-[translate] duration-500"
           style={{ translate: translate }}
         >
           {eyes}

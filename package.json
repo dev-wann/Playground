@@ -14,11 +14,14 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "@tailwindcss/postcss": "^4.1.14",
     "interweave": "^13.1.0",
-    "next": "14.1.0",
+    "next": "^15.5.4",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "react": "^18",
     "react-dom": "^18",
-    "sass": "^1.70.0"
+    "sass": "^1.70.0",
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -27,19 +30,17 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "autoprefixer": "^10.0.1",
-    "daisyui": "^4.12.22",
+    "daisyui": "^5.1.29",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-no-relative-import-paths": "^1.5.5",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-tailwindcss": "^3.17.5",
+    "eslint-plugin-tailwindcss": "^4.0.0-beta.0",
     "interweave-ssr": "^2.0.0",
-    "postcss": "^8",
+    "postcss": "^8.5.6",
     "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
 }
