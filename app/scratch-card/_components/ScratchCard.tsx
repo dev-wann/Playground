@@ -17,30 +17,27 @@ export default function ScratchCard({ status, isWinning, controls }: Props) {
   return (
     <section
       className={cn(
-        "relative h-[360px] w-[640px] select-none [perspective:1000px] [transform-style:preserve-3d]",
-        "scale-95 transition-transform duration-300 hover:scale-100",
+        "h-90 w-160 select-none perspective-distant",
+        "scale-95 transition-all duration-300 hover:scale-100",
         isCompleted && "scale-100",
         isLoading && "opacity-0",
       )}
     >
-      {/* card front */}
       <div
         className={cn(
-          "absolute inset-0 flex size-full flex-col items-center justify-center overflow-hidden rounded-xl [backface-visibility:hidden]",
-          isCompleted && "animate-card-flip-front",
+          "relative h-full w-full transform-3d",
+          isCompleted && "animate-card-flip",
         )}
       >
-        {isWinning ? <Win /> : <Lose />}
-        <ScratchCover status={status} controls={controls} />
-      </div>
+        {/* card front */}
+        <div className="absolute inset-0 flex size-full flex-col items-center justify-center overflow-hidden rounded-xl backface-hidden">
+          {isWinning ? <Win /> : <Lose />}
+          <ScratchCover status={status} controls={controls} />
+        </div>
 
-      {/* card back */}
-      <div
-        className={cn(
-          "bg-gradient-gold absolute inset-0 size-full [transform:rotateY(180deg)] overflow-hidden rounded-xl [backface-visibility:hidden]",
-          isCompleted && "animate-card-flip-back",
-        )}
-      />
+        {/* card back */}
+        <div className="bg-gradient-gold absolute inset-0 size-full rotate-y-180 overflow-hidden rounded-xl backface-hidden" />
+      </div>
     </section>
   );
 }
