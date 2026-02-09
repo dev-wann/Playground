@@ -2,7 +2,7 @@
 
 import type { Category, Difficulty } from "../_types";
 import { useState } from "react";
-import { CATEGORIES, DIFFICULTY_CONFIG, getMaxQuestions } from "../_constants";
+import { CATEGORIES, DIFFICULTY_CONFIG } from "../_constants";
 import { useQuizStore } from "../_store/useQuizStore";
 import { cn } from "@/app/_utils";
 
@@ -18,20 +18,10 @@ export default function SettingsForm() {
   const [hintEnabled, setHintEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const maxQuestions = categories.length > 0 ? getMaxQuestions(categories) : 20;
-  const clampedCount = Math.min(questionCount, maxQuestions);
-
   const toggleCategory = (cat: Category) => {
-    setCategories((prev) => {
-      const next = prev.includes(cat)
-        ? prev.filter((c) => c !== cat)
-        : [...prev, cat];
-      const nextMax = next.length > 0 ? getMaxQuestions(next) : 20;
-
-      setQuestionCount((prev) => Math.min(prev, nextMax));
-
-      return next;
-    });
+    setCategories((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
+    );
     setError(null);
   };
 
@@ -45,7 +35,7 @@ export default function SettingsForm() {
     startGame({
       categories,
       difficulty,
-      questionCount: clampedCount,
+      questionCount,
       timeLimit,
       hintEnabled,
     });
@@ -88,7 +78,6 @@ export default function SettingsForm() {
                 >
                   <span className="text-xl">{cat.emoji}</span>
                   <span>{cat.label}</span>
-                  {selected && <span className="text-xs">✓</span>}
                 </button>
               );
             })}
@@ -127,24 +116,24 @@ export default function SettingsForm() {
           <label className="flex items-center justify-between text-sm font-semibold text-slate-200">
             <span>문제 수</span>
             <span className="rounded-lg bg-slate-700 px-3 py-1 font-mono text-indigo-400">
-              {clampedCount}문제
+              {questionCount}문제
             </span>
           </label>
           <input
             type="range"
             min={1}
-            max={Math.min(20, maxQuestions)}
-            value={clampedCount}
+            max={20}
+            value={questionCount}
             onChange={(e) => {
               setQuestionCount(Number(e.target.value));
               setError(null);
             }}
             aria-label="문제 수"
-            className="range range-sm range-primary"
+            className="range range-sm range-primary w-full"
           />
           <div className="flex justify-between text-xs text-slate-500">
             <span>1</span>
-            <span>{Math.min(20, maxQuestions)}</span>
+            <span>20</span>
           </div>
         </div>
 
@@ -167,7 +156,7 @@ export default function SettingsForm() {
               setError(null);
             }}
             aria-label="문제당 제한시간"
-            className="range range-sm range-primary"
+            className="range range-sm range-primary w-full"
           />
           <div className="flex justify-between text-xs text-slate-500">
             <span>5초</span>
