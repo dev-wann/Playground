@@ -127,9 +127,7 @@ describe("useGameStore", () => {
       store.handleFirstClick(0, 0);
 
       const state = useGameStore.getState();
-      const cell = state.board
-        .flat()
-        .find((c) => !c.isMine && !c.isRevealed);
+      const cell = state.board.flat().find((c) => !c.isMine && !c.isRevealed);
 
       if (cell) {
         store.toggleFlag(cell.row, cell.col);
@@ -148,9 +146,7 @@ describe("useGameStore", () => {
       store.handleFirstClick(0, 0);
 
       const state = useGameStore.getState();
-      const cell = state.board
-        .flat()
-        .find((c) => !c.isMine && !c.isRevealed);
+      const cell = state.board.flat().find((c) => !c.isMine && !c.isRevealed);
 
       if (cell) {
         store.toggleFlag(cell.row, cell.col);
