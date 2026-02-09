@@ -220,13 +220,13 @@ export default function GameView() {
                 disabled={answered || hiddenOptions.includes(idx)}
                 aria-pressed={selectedAnswer === idx}
                 className={cn(
-                  "flex items-start gap-2 rounded-xl border-2 p-3 text-left text-sm font-medium transition-all",
+                  "flex items-center gap-2 rounded-xl border-2 p-3 text-left text-sm font-medium transition-all",
                   getOptionStyle(idx),
                 )}
               >
                 <span
                   className={cn(
-                    "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-bold",
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-bold",
                     answered && idx === question.answer
                       ? "bg-green-500 text-white"
                       : answered && idx === selectedAnswer
