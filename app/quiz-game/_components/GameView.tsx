@@ -8,6 +8,13 @@ import { useQuizStore } from "../_store/useQuizStore";
 import ExitModal from "./ExitModal";
 import { cn } from "@/app/_utils";
 
+function getTimerColor(timePercent: number) {
+  if (timePercent > 60) return "bg-green-500";
+  if (timePercent > 30) return "bg-yellow-500";
+
+  return "bg-red-500";
+}
+
 export default function GameView() {
   const {
     questions,
@@ -92,13 +99,6 @@ export default function GameView() {
 
   const progress = ((currentIndex + 1) / questions.length) * 100;
   const timePercent = (timeRemaining / settings.timeLimit) * 100;
-
-  const getTimerColor = () => {
-    if (timePercent > 60) return "bg-green-500";
-    if (timePercent > 30) return "bg-yellow-500";
-
-    return "bg-red-500";
-  };
 
   const getOptionStyle = (idx: number) => {
     if (!answered) {
@@ -188,7 +188,7 @@ export default function GameView() {
             <div
               className={cn(
                 "h-full rounded-full transition-all duration-1000",
-                getTimerColor(),
+                getTimerColor(timePercent),
               )}
               style={{ width: `${timePercent}%` }}
             />
