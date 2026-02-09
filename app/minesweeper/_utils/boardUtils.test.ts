@@ -107,6 +107,7 @@ describe("revealCell", () => {
       for (let c = 0; c < 5; c++) {
         if (board[r][c].isMine) continue;
         let count = 0;
+
         for (let dr = -1; dr <= 1; dr++) {
           for (let dc = -1; dc <= 1; dc++) {
             const nr = r + dr;
@@ -115,6 +116,7 @@ describe("revealCell", () => {
               count++;
           }
         }
+
         board[r][c] = { ...board[r][c], adjacentMines: count };
       }
     }
