@@ -1,10 +1,11 @@
 "use client";
 
 import type { OptionIndex } from "../_types";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useShallow } from "zustand/shallow";
 import { OPTION_LABELS } from "../_constants";
 import { useQuizStore } from "../_store/useQuizStore";
+import ExitModal from "./ExitModal";
 import { cn } from "@/app/_utils";
 
 export default function GameView() {
@@ -32,9 +33,12 @@ export default function GameView() {
     })),
   );
 
+  const [showExitModal, setShowExitModal] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
+    if (showExitModal) return;
+
     timerRef.current = setInterval(() => {
       useQuizStore.getState().tick();
     }, 1000);
@@ -42,16 +46,21 @@ export default function GameView() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [currentIndex]);
+  }, [currentIndex, showExitModal]);
 
-  const handleExit = useCallback(() => {
-    if (window.confirm("게임을 종료하시겠습니까? 진행 상황이 사라집니다.")) {
-      useQuizStore.getState().resetToSettings();
-    }
+  const handleExit = useCallback(() => setShowExitModal(true), []);
+
+  const handleExitConfirm = useCallback(() => {
+    setShowExitModal(false);
+    useQuizStore.getState().resetToSettings();
   }, []);
+
+  const handleExitCancel = useCallback(() => setShowExitModal(false), []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (showExitModal) return;
+
       const state = useQuizStore.getState();
 
       if (!state.answered) {
@@ -75,7 +84,7 @@ export default function GameView() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [showExitModal]);
 
   const question = questions[currentIndex];
 
@@ -112,6 +121,7 @@ export default function GameView() {
   };
 
   return (
+    <>
     <div className="flex w-full max-w-lg flex-col gap-4 px-4">
       {/* 상단 바 */}
       <div className="flex items-center justify-between">
@@ -270,5 +280,10 @@ export default function GameView() {
         </div>
       </div>
     </div>
+
+    {showExitModal && (
+      <ExitModal onConfirm={handleExitConfirm} onCancel={handleExitCancel} />
+    )}
+    </>
   );
 }
