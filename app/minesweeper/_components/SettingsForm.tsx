@@ -105,7 +105,7 @@ export default function SettingsForm() {
   return (
     <div className="w-full max-w-md px-4">
       <h1 className="mb-6 text-center text-3xl font-bold text-slate-100">
-        Minesweeper
+        Gotta mine &apos;em all!
       </h1>
 
       <form

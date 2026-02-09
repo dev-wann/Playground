@@ -26,7 +26,7 @@ export default function MinesweeperPage() {
               <GearSix size={24} />
             </button>
             <h1 className="flex-1 text-center text-xl font-bold text-slate-100">
-              Minesweeper
+              Gotta mine &apos;em all!
             </h1>
             <div className="w-10" />
           </div>
