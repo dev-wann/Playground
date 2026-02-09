@@ -1,0 +1,83 @@
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const eslintConfig = [
+  ...compat.extends(
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:tailwindcss/recommended",
+  ),
+  ...compat.plugins("prettier", "no-relative-import-paths", "@typescript-eslint"),
+  {
+    rules: {
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "type",
+            "builtin",
+            "external",
+            "parent",
+            "sibling",
+            "index",
+            "unknown",
+          ],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+          "newlines-between": "never",
+        },
+      ],
+      "@typescript-eslint/no-unused-vars": "error",
+      "@next/next/no-html-link-for-pages": "off",
+      "react/react-in-jsx-scope": "off",
+      "arrow-body-style": "off",
+      "prefer-arrow-callback": "off",
+      "turbo/no-undeclared-env-vars": "off",
+      "no-extra-boolean-cast": "warn",
+      "@typescript-eslint/no-empty-function": "off",
+      "comma-dangle": ["error", "always-multiline"],
+      "import/newline-after-import": ["error", { count: 1 }],
+      "padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "function", next: "*" },
+        { blankLine: "always", prev: "*", next: "function" },
+        { blankLine: "always", prev: "*", next: "multiline-block-like" },
+        { blankLine: "always", prev: "multiline-block-like", next: "*" },
+      ],
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          max: 2,
+          maxEOF: 1,
+          maxBOF: 0,
+        },
+      ],
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-relative-import-paths/no-relative-import-paths": [
+        "warn",
+        { allowSameFolder: true, rootDir: "src", prefix: "@" },
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          doubleQuote: true,
+          tabWidth: 2,
+          plugins: ["prettier-plugin-tailwindcss"],
+        },
+      ],
+      "tailwindcss/no-custom-classname": "off",
+    },
+  },
+];
+
+export default eslintConfig;
