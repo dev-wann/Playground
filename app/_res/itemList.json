@@ -1,5 +1,9 @@
 [
   {
+    "title": "Quiz Game",
+    "href": "/quiz-game"
+  },
+  {
     "title": "Minesweeper",
     "href": "/minesweeper"
   },
