@@ -1,5 +1,9 @@
 [
   {
+    "title": "Turn-based Battle",
+    "href": "/turn-based-battle"
+  },
+  {
     "title": "Quiz Game",
     "href": "/quiz-game"
   },
